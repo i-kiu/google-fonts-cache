@@ -1,0 +1,20 @@
+{
+    "name": "ikiu/google-fonts-cache",
+    "description": "Cache the Google fonts on a own subdomain",
+    "type": "project",
+    "license": "mit",
+    "autoload": {
+        "psr-4": {
+            "Ikiu\\GoogleFontsCache\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Oliver Krammer",
+            "email": "o.k@i-kiu.at"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.5"
+    }
+}

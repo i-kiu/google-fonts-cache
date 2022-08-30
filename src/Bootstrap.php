@@ -66,8 +66,7 @@ class Bootstrap
     protected function retreiveFontsByCSS($css)
     {
         $pattern = '/url\((.*)\)/mU';
-        $protocol = stripos($_SERVER['SERVER_PROTOCOL'], 'https') === 0 ? 'https://' : 'http://';
-
+        $protocol = stripos($_SERVER['REQUEST_SCHEME'], 'https') === 0 ? 'https://' : 'http://';
         $replaceUri =$protocol . $_SERVER['SERVER_NAME'] . '/css/fonts/';
         if (preg_match_all($pattern, $css, $matches, PREG_SET_ORDER, 0)) {
             $information = [];
@@ -90,9 +89,13 @@ class Bootstrap
 
     public function run()
     {
-        $this->setHeader();
-        echo file_get_contents($this->filename);
-        exit;
+
+        if (!empty($this->filename)) {
+                $this->setHeader();
+                echo file_get_contents($this->filename);
+                exit;
+        }
+
     }
 
     private function setHeader($headerType='text/css')

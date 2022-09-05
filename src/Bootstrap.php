@@ -41,7 +41,8 @@ class Bootstrap
 // string(40) "family=Crimson+Pro:ital,wght@0,700;1,700"
     public function init()
     {
-        if (isset($_SERVER['QUERY_STRING'])) {
+// query string must begin with "family="
+        if (isset($_SERVER['QUERY_STRING']) && preg_match("/^family=.*/", $_SERVER['QUERY_STRING'],$queryStringArray)) {
             $this->loadRemoteFontCss($_SERVER['QUERY_STRING']);
         }
     }
@@ -53,7 +54,7 @@ class Bootstrap
         $this->filename = $this->dir . 'remotefont-' . md5($FontFamily) . '.css';
 
         if (!file_exists($this->filename) || (time() - 84600 < filemtime($this->filename))) {
-// similar to cURL
+// guzzle is an abstraction layer for http requests in php, uses cURL be default
             $client = new \GuzzleHttp\Client();
             $fontUri = 'https://fonts.googleapis.com/css2?' . $FontFamily;
 
